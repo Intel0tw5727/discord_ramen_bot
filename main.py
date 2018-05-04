@@ -42,7 +42,7 @@ async def on_message(message):
                 m = "{}を削除したゾ".format(sentences[1])
                 await client.send_message(message.channel, m)
 
-        elif sentences[1] == "help":
+        elif sentences[0] == "help":
             m = "店舗名のみ：店舗のtwitter情報を提供します\n list：現在情報を提供できる店舗名のリストを返します\n add：addにつづいて店舗情報、twitterURLをスペース区切りで入力することで追加できます(add 店舗名 twitterURL)\n del：既に追加されている店舗を削除することができます。"
             await client.send_message(message.channel, m)
 
