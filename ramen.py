@@ -10,9 +10,5 @@ def read_ramens(df):
 def add_ramen(sentence):
     return None
 
-def list_ramen(df):
+def list_ramens(df):
     return df.name.tolist()    
-
-if __name__ == "__main__":
-    df = pd.read_csv("ramen_data.csv")
-    print(read_ramens())

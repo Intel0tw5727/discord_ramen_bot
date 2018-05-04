@@ -1,9 +1,10 @@
 import discord
+import pandas as pd
 import ramen
 import os
 
 token = os.getenv("BOT_TOKEN")
-ramens = ramen.read_ramens()
+ramens = pd.read_csv("ramens_list.csv")
 
 client = discord.Client()
 
@@ -21,8 +22,8 @@ async def on_message(message):
             m = ramens[ramens["name"] == sentences[0]].twitter_url.values[0]
             await client.send_message(message.channel, m)
 
-        elif sentences[0] == "list"
-            m = ramens.list_ramens()
+        elif sentences[0] == "list":
+            m = ramen.list_ramens(ramens)
             await client.send_message(message.channel, m)
 
 client.run(token)
