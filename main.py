@@ -4,7 +4,6 @@ import ramen
 import os
 
 token = os.getenv("BOT_TOKEN")
-ramens = pd.read_csv("ramens_list.csv")
 
 client = discord.Client()
 
@@ -15,6 +14,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     sentences = message.content.split()
+    ramens = pd.read_csv("ramens_list.csv")
 
     # 店舗名のみのメッセージ
     if client.user != message.author:
@@ -31,7 +31,19 @@ async def on_message(message):
                 await client.send_message(message.channel, "この店舗情報は既に追加されています！")
             else:
                 ramen.set_ramen(sentences[1:])
-                m = "{}を登録しました！".format(sentences[1])
+                m = "{}を登録ｩ！ﾎﾟﾍﾟｰ！".format(sentences[1])
                 await client.send_message(message.channel, m)
+
+        elif sentences[0] == "del":
+            if sentences[1] in ramens.name.tolist():
+                idx = ramens[ramens["name"] == sentences[1]].index[0]
+                ramens = ramens.drop(index=idx)
+                ramens.to_csv("ramens_list.csv", index=False)
+                m = "{}を削除したゾ".format(sentences[1])
+                await client.send_message(message.channel, m)
+
+        elif sentences[1] == "help":
+            m = "店舗名のみ：店舗のtwitter情報を提供します\n list：現在情報を提供できる店舗名のリストを返します\n add：addにつづいて店舗情報、twitterURLをスペース区切りで入力することで追加できます(add 店舗名 twitterURL)\n del：既に追加されている店舗を削除することができます。"
+            await client.send_message(message.channel, m)
 
 client.run(token)
