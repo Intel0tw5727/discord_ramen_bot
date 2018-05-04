@@ -27,8 +27,11 @@ async def on_message(message):
             await client.send_message(message.channel, m)
 
         elif sentences[0] == "add":
-            ramen.set_ramen(sentences[1:])
-            m = "{}を登録しました！".format(sentences[1])
-            await client.send_message(message.channel, m)
+            if sentences[1] in ramens.name.tolist():
+                await client.send_message(message.channel, "この店舗情報は既に追加されています！")
+            else:
+                ramen.set_ramen(sentences[1:])
+                m = "{}を登録しました！".format(sentences[1])
+                await client.send_message(message.channel, m)
 
 client.run(token)
