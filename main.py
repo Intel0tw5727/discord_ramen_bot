@@ -1,9 +1,9 @@
 import discord
-import read_ramen
+import ramen
 import os
 
 token = os.getenv("BOT_TOKEN")
-ramens = read_ramen.read_ramen()
+ramens = ramen.read_ramens()
 
 client = discord.Client()
 
@@ -13,10 +13,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    
-    if message.content in ramens:
+    if message.content in ramens.name.tolist():
         if client.user != message.author:
-            m = "https://twitter.com/sakamotogeki"
+            m = ramens[ramens["name"] == message.content].twitter_url.values[0]
             await client.send_message(message.channel, m)
 
 client.run(token)
