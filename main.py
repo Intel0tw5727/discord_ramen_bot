@@ -13,9 +13,16 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content in ramens.name.tolist():
-        if client.user != message.author:
-            m = ramens[ramens["name"] == message.content].twitter_url.values[0]
+    sentences = message.content.split()
+
+    # 店舗名のみのメッセージ
+    if client.user != message.author:
+        if sentences[0] in ramens.name.tolist():
+            m = ramens[ramens["name"] == sentences[0]].twitter_url.values[0]
+            await client.send_message(message.channel, m)
+
+        elif sentences[0] == "list"
+            m = ramens.list_ramens()
             await client.send_message(message.channel, m)
 
 client.run(token)
