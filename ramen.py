@@ -12,3 +12,8 @@ def add_ramen(sentence):
 
 def list_ramens(df):
     return df.name.tolist()    
+
+def set_ramen(sentences):
+    with open("ramens_list.csv", "a") as f:
+        f.write("{},{}".format(sentences[0], sentences[1]))
+    print("Writed")
