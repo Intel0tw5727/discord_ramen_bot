@@ -43,7 +43,16 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
 
         elif sentences[0] == "help":
-            m = "店舗名のみ：店舗のtwitter情報を提供します\n list：現在情報を提供できる店舗名のリストを返します\n add：addにつづいて店舗情報、twitterURLをスペース区切りで入力することで追加できます(add 店舗名 twitterURL)\n del：既に追加されている店舗を削除することができます。"
+            with open("help.txt", "r") as file:
+                m = ""
+                for f in file.readlines():
+                    m += f
+
             await client.send_message(message.channel, m)
+
+        elif sentences[0] == "tweet":
+            tweets = ramen.head_tweets(ramens[ramens["name"] == sentences[1]].twitter_url.values[0])
+            await client.send_message(message.channel, tweets)
+
 
 client.run(token)
