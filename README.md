@@ -5,6 +5,8 @@ It is a repository for dialog bot which reads and writes data on Discord to csv 
 ## Used module
 + Discord.py (https://github.com/Rapptz/discord.py)
 + pandas 0.22.0 (https://github.com/pandas-dev/pandas)
++ beautifulsoup4
+
 ## Function
 + `add argument`
 	+ Write data to csv
